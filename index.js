@@ -1,7 +1,7 @@
 const tipranksApi = require('tipranks-api-v2');
 const readline = require('readline');
 
-tipranksApi.getPriceTargets('MU').then(result => console.log(result));
+
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -26,16 +26,18 @@ rl.on('close', () => {
     getTickrs(); // Call the function after the readline interface is closed
 });
 
+getUserInput();
 
 async function getTickrs() {
-    try {
-      for (const tickr of tickersArray) {
-        const result = await tipranksApi.getPriceTargets(tickr);
-        console.log(result);
-      }
-    } catch (error) {
-      console.error(error);
+  try {
+    for (const tickr of tickersArray) {
+      const result = await tipranksApi.getPriceTargets(tickr);
+      const result1 = await tipranksApi.getNewsSentimentData(tickr);
+      console.log(result, result1);
     }
+  } catch (error) {
+    console.error(error);
   }
+}
 
-  getUserInput();
+//getTickrs(tickersArray);
